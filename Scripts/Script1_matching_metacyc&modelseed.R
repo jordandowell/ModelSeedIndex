@@ -12,18 +12,15 @@ library("data.table")
 ModelSeed<-read_tsv("Database/ModelSeedreactions.tsv")
 View((ModelSeed))
 
-#subset all GSL reations
+#subset all reactions based on a keyword
 GSLreactions <- ModelSeed[ModelSeed$pathways %like% "glucosinolate", ]
 View(GSLreactions)
-dim(OK.GSLreactions)
+
 #subset balanced reactions
 
 #OK.GSLreactions <- GSLreactions[GSLreactions$status %like% "OK", ]
 
-#remove obsolete reactions
-OK.GSLreactions <- GSLreactions[GSLreactions$is_obsolete %like% "0", ]
 
-View(OK.GSLreactions)
 
 #import list of reactions that we want from Data
 
@@ -47,6 +44,8 @@ Reactionlist<-rbind(Reactionlist,ReactionsofInterest)
 #end loop 
 }
 View(Reactionlist)
+#remove obsolete reactions
+Reactionlist <- Reactionlist[Reactionlist$is_obsolete %like% "0", ]
 
 
 #export for manual curation?
